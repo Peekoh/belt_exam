@@ -1,0 +1,20 @@
+@model Event
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h2>@Model.Title</h2>
+    <p>Coordinator: @Model.Creator</p>
+    <h3>Participants</h3>
+    <ul>
+        @foreach(var p in Model.Participants){
+            <li>@p.User.Alias</li>
+        }
+    </ul>
+</body>
+</html>

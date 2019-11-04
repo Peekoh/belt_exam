@@ -1,0 +1,86 @@
+@model List<Event>
+    @foreach(var v in @Model){
+        <p>@v.Title</p>
+    }
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Home</title>
+    </head>
+
+    <body>
+        <header>
+            <h1>Welcome, @ViewBag.User.Alias</h1>
+            <a href="logout">Logout</a>
+        </header>
+        <table>
+            <thead>
+                <tr>
+                    <th>Activity</th>
+                    <th>Date & Time</th>
+                    <th>Duration</th>
+                    <th>Event Coordinator</th>
+                    <th># of Participants</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                
+                <a href="New">Add New Activity!</a>
+
+               
+
+                @foreach(var e in Model){
+                <tr>
+                    <td>
+                        <a href="View/@e.EventId">@e.Title</a>
+                    </td>
+                    <td>@String.Format("{0:dd/MM}", e.Date)
+                        at
+                        @String.Format("{0:hh:mm tt}", e.Time)
+                    </td>
+                    <td>@e.Duration</td>
+                    <td>@e.Creator</td>
+                    <td>
+                        @{
+                        if(e.Participants == null){
+                        <span>0</span>
+                        }else{
+                        <span>@e.Participants.Count()</span>
+                        }
+                        }
+                    </td>
+                    <td>
+                        @{
+                        if(e.Creator == ViewBag.User.Alias){
+                        <a href="Delete/@e.EventId">Delete</a>
+                        }else if(e.Participants != null){
+                            bool isUser = false;
+                            foreach(var r in e.Participants){
+                                if(r.User == ViewBag.User){
+                                    <a href="Leave/@e.EventId">Leave</a>
+                                    isUser = true;
+                                }
+                            }
+                            if(isUser == false){
+                                <a href="Join/@e.EventId">Join</a>
+                            }
+                        }
+                            
+                        
+                    }
+                    </td>
+                </tr>
+                }
+                
+
+            </tbody>
+        </table>
+    </body>
+
+    </html>

@@ -1,0 +1,10 @@
+@model LoginCheck
+<form asp-action="Login" controller="Home" method="post">
+    <label asp-for="LoginEmail"></label>
+    <input type="email" name="LoginEmail" id="">
+    <span asp-validation-for="LoginEmail"></span>
+    <label asp-for="LoginPassword"></label>
+    <input type="password" asp-for="LoginPassword" id="">
+    <span asp-validation-for="LoginPassword"></span>
+    <input type="submit" value="Login">
+</form>
